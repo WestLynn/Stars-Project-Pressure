@@ -10,15 +10,26 @@ M_sun = 1.989e30
 sigma = 5.670373e-8      # Stefan-Boltzmann constant
 np.seterr(all='ignore')
 
+# Change the boolean array to switch pressure modes
+# [1, 0, 0] = Degeneracy
+# [0, 1, 0] = Ideal Gas
+# [0, 0, 1] = Radiative
+boolean_array = [0, 0, 0]
+
 def make_star(t_central, star_number):
-    print "*** Making star number: ", star_number, " , T_c =", t_central, "***"
-    ms_star = Star(1e5, t_central).final_star
-    print "a", ms_star.a, "central temperature", t_central, "surface temperature", ms_star.temp[ms_star.a]
-    print "Surface Temperature", ms_star.temp[ms_star.a]
-    print "Recalculated Temperature", (ms_star.luminosity[ms_star.a]/(4.0 * np.pi * sigma * ms_star.radius[ms_star.a]**2.0))**(1.0/4.0)
-    print "Luminosity", ms_star.luminosity[ms_star.a]
-    print "Luminosity/L_sun", ms_star.luminosity[ms_star.a]/L_sun
-    print "Temperature^4", 4.0 * np.pi * sigma * ms_star.radius[ms_star.a]**2.0 * ms_star.temp[ms_star.a]**4.0
+    print("*** Making star number: ", star_number, " , T_c =", t_central, "***")
+    # Required Arguments for Star() Class are:
+    # Derivative Radius (dr)
+    # Central Temperature (central_temp)
+    # Boolean Array Denoting Pressure Type (p)
+    ms_star = Star(1e5, t_central, boolean_array).final_star
+    print("a", ms_star.a, "central temperature", t_central, "surface temperature", ms_star.temp[ms_star.a])
+    print("Surface Temperature", ms_star.temp[ms_star.a])
+    print("Recalculated Temperature",
+          (ms_star.luminosity[ms_star.a]/(4.0 * np.pi * sigma * ms_star.radius[ms_star.a]**2.0))**(1.0/4.0))
+    print("Luminosity", ms_star.luminosity[ms_star.a])
+    print("Luminosity/L_sun", ms_star.luminosity[ms_star.a]/L_sun)
+    print("Temperature^4", 4.0 * np.pi * sigma * ms_star.radius[ms_star.a]**2.0 * ms_star.temp[ms_star.a]**4.0)
     return ms_star
 
 ###### Looping for a bunch of stars ############
@@ -33,7 +44,7 @@ start_time = time.time()
 
 #central_temperatures = [8.23e6]
 central_temperatures = 10.**np.arange(6.6, 7.5, 0.03)
-print "Central temperatures: ", central_temperatures
+print("Central temperatures: ", central_temperatures)
 
 for t_central in central_temperatures:
     star_number += 1
@@ -44,12 +55,12 @@ for t_central in central_temperatures:
     stars_masses.append(ms_star.mass[ms_star.a] / M_sun)
     stars_radii.append(ms_star.radius[ms_star.a] / R_sun)
 
-print "done"
-print "total time", time.time() - start_time
-print "Surface temperatures:", surface_temperatures
-print "Luminosities:", stars_luminosities
-print "Masses:", stars_masses
-print "Radii:", stars_radii
+print("done")
+print("total time", time.time() - start_time)
+print("Surface temperatures:", surface_temperatures)
+print("Luminosities:", stars_luminosities)
+print("Masses:", stars_masses)
+print("Radii:", stars_radii)
 
 
 plt.figure(1)
@@ -83,3 +94,4 @@ plt.title('Main Sequence: Radius versus Mass')
 plt.savefig("main_sequence_radii_masses.png")
 
 plt.show()
+

@@ -494,6 +494,10 @@ class Star:
 def Plots(test):
     plt.figure('Radius')
     plt.plot(test.radius, 'o')
+    plt.tight_layout()
+    #plt.savefig('preasure.pdf')
+
+    
     plt.figure('Temperature, Density, Mass, Luminosity')
     plt.plot(np.array(test.radius) / R_star, np.array(test.temp) / test.temp[0], 'r-', label="Temperature")
     plt.plot(np.array(test.radius) / R_star, np.array(test.density) / test.density[0], 'k-', label="Density")
@@ -503,27 +507,44 @@ def Plots(test):
     plt.ylabel("$\\rho/\\rho_c$  $M/M_*$   $L/L_s$  $T/T_c$")
     plt.title("Change in Temp., Density, Mass, and Luminosity")
     plt.legend(bbox_to_anchor=(1, 0.6), bbox_transform=plt.gcf().transFigure)
+    plt.tight_layout()
+    #plt.savefig('Temperature, Density, Mass, Luminosity.pdf')
+    
     plt.figure('Pressure')
     plt.plot(np.array(test.radius) / R_star, np.array(test.pressure) / test.pressure[0])
     plt.xlabel("$R/R_*$")
     plt.ylabel("$P/P_0$")
     plt.title("Change in Pressure from centre to Surface of Star")
+    plt.tight_layout()
+# Save figure
+    #plt.savefig('Preasure.pdf')
+    
     plt.figure('dL/dr')
     plt.plot(np.array(test.radius) / R_star, np.array(test.dL_dr_values) * (R_star / L_star))
     plt.xlabel('$R/R_*$')
     plt.ylabel('dL/dr')
     plt.title("dL/dr")
+    plt.tight_layout()
+# Save figure
+    #plt.savefig('dL/dr.pdf')
+
     plt.figure('Opacity')
     plt.plot(np.array(test.radius) / R_star, test.opacity)
     plt.yscale('log')
     plt.xlabel('$R/R_*$')
     plt.ylabel('$\\kappa$')
     plt.title("$log_{10}\\kappa$ against Radius")
+    plt.tight_layout()
+# Save figure
+    #plt.savefig('Opacity.pdf')
 
     plt.figure('dlogP_dlogT')
     plt.plot(np.array(test.radius) / R_star, test.dlogP_dlogT)
     plt.xlabel('$R/R_*$')
     plt.ylabel('dlogP_dlogT')
+    plt.tight_layout()
+# Save figure
+    #plt.savefig('dlogP_dlogT.pdf')
 
     # plt.figure('rho_changes')
     # plt.plot(np.array(test.radius)/R_star,np.array(test.drho_P),'r-')
@@ -532,16 +553,20 @@ def Plots(test):
     # plt.figure('drho')
     # plt.plot(np.array(test.radius)/R_star,np.array(test.drho))
     # plt.ylim([-0.001,0])
+    
     plt.figure('dT_dr')
     plt.plot(np.array(test.radius) / R_star, test.convective, 'b-')
     plt.plot(np.array(test.radius) / R_star, test.radiative, 'k-')
     # plt.ylim([-0.01,0.01])
     plt.xlim([0, 0.15])
-    plt.show()
+    plt.tight_layout()
+# Save figure
+    #plt.savefig('dT_dr')
+    #plt.show()
 
 
 # test = trialStar(100.0e3,0.3e3,8.23e6,[1.0,1.0,1.0])
-#test_star = Star(100.0e3, 8.23e6, [1.0, 1.0, 1.0])
+#test_star = Star(100.0e3, 8.23e6, [0, 0, 0])
 #test = test_star.final_star
 
 #Plots(test)  # unhashtag Plots() to see the plots.

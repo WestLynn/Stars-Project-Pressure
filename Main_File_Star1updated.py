@@ -504,70 +504,53 @@ def Plots(test):
     plt.plot(np.array(test.radius) / R_star, np.array(test.mass) / test.mass[-1], 'g-', label="Mass")
     plt.plot(np.array(test.radius) / R_star, np.array(test.luminosity) / test.luminosity[-1], 'b-', label="Luminosity")
     plt.xlabel("$R/R_*$")
-    plt.ylabel("$\\rho/\\rho_c$  $M/M_*$   $L/L_s$  $T/T_c$")
-    plt.title("Change in Temp., Density, Mass, and Luminosity")
+    plt.ylabel("$rho/rho_c$  $M/M_*$   $L/L_s$  $T/T_c$")
+    plt.title("Change in Temp, Density, Mass, and Luminosity  for Total Preasure")
     plt.legend(bbox_to_anchor=(1, 0.6), bbox_transform=plt.gcf().transFigure)
     plt.tight_layout()
-    #plt.savefig('Temperature, Density, Mass, Luminosity.pdf')
+    plt.savefig('Temperature_Density_Mass_Luminosity_highmass_Total_Preasure.pdf')
     
     plt.figure('Pressure')
-    plt.plot(np.array(test.radius) / R_star, np.array(test.pressure) / test.pressure[0])
+    plt.plot(np.array(test.radius) / R_star, np.array(test.pressure) / test.pressure[0], 'b-')
     plt.xlabel("$R/R_*$")
     plt.ylabel("$P/P_0$")
-    plt.title("Change in Pressure from centre to Surface of Star")
+    plt.title("Change in Pressure from centre to Surface of Star for Total Preasure")
     plt.tight_layout()
 # Save figure
-    #plt.savefig('Preasure.pdf')
+    plt.savefig('Preasure_highmass_Total_Preasure.pdf')
     
     plt.figure('dL/dr')
-    plt.plot(np.array(test.radius) / R_star, np.array(test.dL_dr_values) * (R_star / L_star))
+    plt.plot(np.array(test.radius) / R_star, np.array(test.dL_dr_values) * (R_star / L_star), 'b-')
     plt.xlabel('$R/R_*$')
     plt.ylabel('dL/dr')
-    plt.title("dL/dr")
+    plt.title("$dL$/$dr$ vs. Radius for Total Preasure")
     plt.tight_layout()
 # Save figure
-    #plt.savefig('dL/dr.pdf')
+    plt.savefig('dL_dr_highmass_Total_Preasure.pdf')
 
     plt.figure('Opacity')
-    plt.plot(np.array(test.radius) / R_star, test.opacity)
+    plt.plot(np.array(test.radius) / R_star, test.opacity, 'b-')
     plt.yscale('log')
     plt.xlabel('$R/R_*$')
-    plt.ylabel('$\\kappa$')
-    plt.title("$log_{10}\\kappa$ against Radius")
+    plt.ylabel('$kappa$')
+    plt.title("$log_{10}kappa$ vs. Radius for Total Preasure")
     plt.tight_layout()
 # Save figure
-    #plt.savefig('Opacity.pdf')
+    plt.savefig('Opacity_highmass_Total_Preasure.pdf')
 
     plt.figure('dlogP_dlogT')
-    plt.plot(np.array(test.radius) / R_star, test.dlogP_dlogT)
+    plt.plot(np.array(test.radius) / R_star, test.dlogP_dlogT, 'b-')
     plt.xlabel('$R/R_*$')
-    plt.ylabel('dlogP_dlogT')
+    plt.ylabel('$dlog_{10}P$/$dlog_{10}T$')
+    plt.title("$dlog_{10}P$/$dlog_{10}T$ vs. Radius for Total Preasure")
     plt.tight_layout()
 # Save figure
-    #plt.savefig('dlogP_dlogT.pdf')
-
-    # plt.figure('rho_changes')
-    # plt.plot(np.array(test.radius)/R_star,np.array(test.drho_P),'r-')
-    # plt.plot(np.array(test.radius)/R_star,np.array(test.dt_P),'b-')
-    #
-    # plt.figure('drho')
-    # plt.plot(np.array(test.radius)/R_star,np.array(test.drho))
-    # plt.ylim([-0.001,0])
-    
-    plt.figure('dT_dr')
-    plt.plot(np.array(test.radius) / R_star, test.convective, 'b-')
-    plt.plot(np.array(test.radius) / R_star, test.radiative, 'k-')
-    # plt.ylim([-0.01,0.01])
-    plt.xlim([0, 0.15])
-    plt.tight_layout()
-# Save figure
-    #plt.savefig('dT_dr')
-    #plt.show()
+    plt.savefig('dlogP_dlogT_highmass_Total_Preasure.pdf')
 
 
 # test = trialStar(100.0e3,0.3e3,8.23e6,[1.0,1.0,1.0])
-#test_star = Star(100.0e3, 8.23e6, [0, 0, 0])
-#test = test_star.final_star
+test_star = Star(100.0e3, 10**7.5, [1.0, 1.0, 1.0])
+test = test_star.final_star
 
-#Plots(test)  # unhashtag Plots() to see the plots.
+Plots(test)  # unhashtag Plots() to see the plots.
 #print(test.density)
